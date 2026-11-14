@@ -158,21 +158,43 @@
       gap: 14px;
     }
 
-    .brand {
+    /* Nativer Button für das App-Logo (garantiert Klickbarkeit unter iOS/iPadOS) */
+    button.brand {
       display: flex;
       align-items: center;
       gap: 12px;
+      background: transparent;
+      border: none;
+      padding: 4px 8px 4px 4px;
+      border-radius: 10px;
       cursor: pointer;
+      text-align: left;
+      font-family: var(--sans);
+      color: var(--text);
       user-select: none;
+      -webkit-user-select: none;
       touch-action: manipulation;
+      position: relative;
+      z-index: 1002;
+      transition: background 0.15s ease;
+    }
+
+    button.brand:hover,
+    button.brand:active {
+      background: rgba(212, 168, 87, 0.10);
+    }
+
+    /* Verhindert, dass innere SVG-Pfade den Touch-Event auf iOS verschlucken */
+    button.brand * {
+      pointer-events: none;
     }
 
     .brand-mark {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 9px;
       background: #14161b;
-      border: 1px solid rgba(212, 168, 87, 0.55);
+      border: 1px solid rgba(212, 168, 87, 0.65);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -181,15 +203,15 @@
       transition: transform 0.15s ease, border-color 0.15s ease;
     }
 
-    .brand:hover .brand-mark,
-    .brand:active .brand-mark {
+    button.brand:hover .brand-mark,
+    button.brand:active .brand-mark {
       transform: scale(1.05);
       border-color: var(--gold);
     }
 
     .brand-mark svg {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       display: block;
     }
 
@@ -198,21 +220,28 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--text);
+      display: block;
     }
 
     .brand-sub {
       font-size: 0.78rem;
       color: var(--muted);
+      display: block;
     }
 
-    /* Info-Modal beim Klick auf das App-Logo */
+    /* Info-Modal beim Klick auf das App-Logo (explizite Koordinaten für iOS WebKit) */
     .about-modal-backdrop {
       position: fixed;
-      inset: 0;
-      background: rgba(12, 13, 16, 0.78);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(12, 13, 16, 0.82);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      z-index: 2000;
+      z-index: 99999;
       display: none;
       align-items: center;
       justify-content: center;
@@ -220,7 +249,7 @@
     }
 
     .about-modal-backdrop.open {
-      display: flex;
+      display: flex !important;
     }
 
     .about-modal {
@@ -228,21 +257,17 @@
       border: 1px solid var(--gold);
       border-radius: 16px;
       padding: 28px 24px 22px;
-      max-width: 380px;
+      max-width: 390px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65);
-      animation: modalFadeIn 0.18s ease-out;
-    }
-
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.75);
+      position: relative;
+      z-index: 100000;
     }
 
     .about-logo-box {
-      width: 72px;
-      height: 72px;
+      width: 74px;
+      height: 74px;
       margin: 0 auto 14px;
       border-radius: 16px;
       background: #14161b;
@@ -263,18 +288,18 @@
       font-size: 1.15rem;
       font-weight: 700;
       color: var(--text);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .about-text {
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       color: var(--gold);
       font-weight: 600;
       line-height: 1.5;
       margin-bottom: 20px;
-      padding: 12px 14px;
+      padding: 14px 16px;
       background: var(--gold-bg);
-      border: 1px solid rgba(212, 168, 87, 0.3);
+      border: 1px solid rgba(212, 168, 87, 0.35);
       border-radius: 10px;
     }
 
@@ -1102,9 +1127,9 @@
 
   <header>
     <div class="header-inner">
-      <div class="brand" id="brand-logo-trigger" role="button" tabindex="0" title="Info zum HiFi Cockpit anzeigen">
-        <!-- Logo Nr. 1 direkt als SVG-Markenzeichen im Header -->
-        <div class="brand-mark" aria-hidden="true">
+      <!-- Nativer HTML-Button mit direktem onclick-Aufruf -->
+      <button type="button" class="brand" id="brand-logo-trigger" onclick="openAboutModal()" title="Info zum HiFi Cockpit anzeigen">
+        <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
             <path d="M 114 260 A 142 142 0 0 1 398 260" fill="none" stroke="#d4a857" stroke-width="26" stroke-linecap="round"/>
             <path d="M 138 180 A 140 140 0 0 1 374 180" fill="none" stroke="#d4a857" stroke-width="36" stroke-linecap="round"/>
@@ -1114,12 +1139,12 @@
             <rect x="380" y="248" width="36" height="134" rx="16" fill="#d4a857"/>
             <polyline points="196,314 216,314 228,274 241,348 256,226 271,368 284,284 295,328 304,314 316,314" fill="none" stroke="#d4a857" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-        </div>
-        <div>
-          <div class="brand-title">HiFi Cockpit</div>
-          <div class="brand-sub">Kopfhörer · Audioketten · Klangprofile</div>
-        </div>
-      </div>
+        </span>
+        <span>
+          <span class="brand-title">HiFi Cockpit</span>
+          <span class="brand-sub">Kopfhörer · Audioketten · Klangprofile</span>
+        </span>
+      </button>
 
       <nav class="nav-tabs" aria-label="Hauptnavigation">
         <button type="button" class="nav-tab active" data-tab="tab-finder">Setup-Finder</button>
@@ -1130,8 +1155,8 @@
   </header>
 
   <!-- Modal-Fenster beim Klick auf das App-Logo -->
-  <div class="about-modal-backdrop" id="about-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
-    <div class="about-modal">
+  <div class="about-modal-backdrop" id="about-modal-backdrop" onclick="if(event.target === this) closeAboutModal()">
+    <div class="about-modal" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
       <div class="about-logo-box" aria-hidden="true">
         <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
           <path d="M 114 260 A 142 142 0 0 1 398 260" fill="none" stroke="#d4a857" stroke-width="26" stroke-linecap="round"/>
@@ -1145,7 +1170,7 @@
       </div>
       <h3 class="about-title" id="about-modal-title">HiFi Cockpit</h3>
       <p class="about-text">Designed by Dr. Mark R. Kaspers in Duisburg.<br>Made with HiFi-Love.</p>
-      <button type="button" class="btn-primary" id="btn-close-about" style="width: 100%;">Schließen</button>
+      <button type="button" class="btn-primary" id="btn-close-about" onclick="closeAboutModal()" style="width: 100%;">Schließen</button>
     </div>
   </div>
 
@@ -1360,6 +1385,23 @@
   </main>
 
   <script>
+    // ========================================================================
+    // 0. MODAL-STEUERUNG (GLOBAL FÜR DIREKTEN ONCLICK-ZUGRIFF)
+    // ========================================================================
+    function openAboutModal() {
+      var backdrop = document.getElementById("about-modal-backdrop");
+      if (backdrop) {
+        backdrop.classList.add("open");
+      }
+    }
+
+    function closeAboutModal() {
+      var backdrop = document.getElementById("about-modal-backdrop");
+      if (backdrop) {
+        backdrop.classList.remove("open");
+      }
+    }
+
     // ========================================================================
     // 1. DATENBASIS: FILTER, SETUPS & KOPFHÖRER-PROFILE
     // ========================================================================
@@ -2338,34 +2380,21 @@
     // ========================================================================
     // 4. ROBUSTE EVENT-BINDUNG & INITIALISIERUNG
     // ========================================================================
-    const aboutBackdrop = document.getElementById("about-modal-backdrop");
-    const brandTrigger = document.getElementById("brand-logo-trigger");
-    const closeAboutBtn = document.getElementById("btn-close-about");
-
-    function openAboutModal() {
-      if (aboutBackdrop) aboutBackdrop.classList.add("open");
-    }
-
-    function closeAboutModal() {
-      if (aboutBackdrop) aboutBackdrop.classList.remove("open");
-    }
-
-    brandTrigger?.addEventListener("click", openAboutModal);
-    brandTrigger?.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        openAboutModal();
-      }
-    });
-    closeAboutBtn?.addEventListener("click", closeAboutModal);
-    aboutBackdrop?.addEventListener("click", (e) => {
-      if (e.target === aboutBackdrop) closeAboutModal();
-    });
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeAboutModal();
     });
 
     document.addEventListener("click", (e) => {
+      if (e.target.closest("#brand-logo-trigger")) {
+        openAboutModal();
+        return;
+      }
+
+      if (e.target.closest("#btn-close-about")) {
+        closeAboutModal();
+        return;
+      }
+
       const tabBtn = e.target.closest("[data-tab]");
       if (tabBtn) {
         switchTab(tabBtn.getAttribute("data-tab"));
