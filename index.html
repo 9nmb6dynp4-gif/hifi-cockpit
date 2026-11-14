@@ -109,6 +109,7 @@
       --blue: #5c9ce6;
       --blue-bg: rgba(92, 156, 230, 0.10);
       --green: #5fb384;
+      --green-bg: rgba(95, 179, 132, 0.10);
       --text: #eceef2;
       --muted: #949ba6;
       --dim: #646b78;
@@ -161,6 +162,9 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
     }
 
     .brand-mark {
@@ -174,6 +178,13 @@
       justify-content: center;
       flex-shrink: 0;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .brand:hover .brand-mark,
+    .brand:active .brand-mark {
+      transform: scale(1.05);
+      border-color: var(--gold);
     }
 
     .brand-mark svg {
@@ -192,6 +203,79 @@
     .brand-sub {
       font-size: 0.78rem;
       color: var(--muted);
+    }
+
+    /* Info-Modal beim Klick auf das App-Logo */
+    .about-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(12, 13, 16, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .about-modal-backdrop.open {
+      display: flex;
+    }
+
+    .about-modal {
+      background: var(--surface);
+      border: 1px solid var(--gold);
+      border-radius: 16px;
+      padding: 28px 24px 22px;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65);
+      animation: modalFadeIn 0.18s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .about-logo-box {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 14px;
+      border-radius: 16px;
+      background: #14161b;
+      border: 1px solid rgba(212, 168, 87, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .about-logo-box svg {
+      width: 52px;
+      height: 52px;
+      display: block;
+    }
+
+    .about-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .about-text {
+      font-size: 0.92rem;
+      color: var(--gold);
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      padding: 12px 14px;
+      background: var(--gold-bg);
+      border: 1px solid rgba(212, 168, 87, 0.3);
+      border-radius: 10px;
     }
 
     .nav-tabs {
@@ -415,6 +499,12 @@
       padding: 2px 8px;
       border-radius: 4px;
       margin-bottom: 6px;
+    }
+
+    .badge-stationaer {
+      color: var(--green);
+      border: 1px solid rgba(95, 179, 132, 0.35);
+      background: var(--green-bg);
     }
 
     .badge-mobil {
@@ -1012,7 +1102,7 @@
 
   <header>
     <div class="header-inner">
-      <div class="brand">
+      <div class="brand" id="brand-logo-trigger" role="button" tabindex="0" title="Info zum HiFi Cockpit anzeigen">
         <!-- Logo Nr. 1 direkt als SVG-Markenzeichen im Header -->
         <div class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -1039,6 +1129,26 @@
     </div>
   </header>
 
+  <!-- Modal-Fenster beim Klick auf das App-Logo -->
+  <div class="about-modal-backdrop" id="about-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
+    <div class="about-modal">
+      <div class="about-logo-box" aria-hidden="true">
+        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 114 260 A 142 142 0 0 1 398 260" fill="none" stroke="#d4a857" stroke-width="26" stroke-linecap="round"/>
+          <path d="M 138 180 A 140 140 0 0 1 374 180" fill="none" stroke="#d4a857" stroke-width="36" stroke-linecap="round"/>
+          <rect x="96" y="248" width="36" height="134" rx="16" fill="#d4a857"/>
+          <rect x="140" y="248" width="34" height="134" rx="10" fill="#d4a857"/>
+          <rect x="338" y="248" width="34" height="134" rx="10" fill="#d4a857"/>
+          <rect x="380" y="248" width="36" height="134" rx="16" fill="#d4a857"/>
+          <polyline points="196,314 216,314 228,274 241,348 256,226 271,368 284,284 295,328 304,314 316,314" fill="none" stroke="#d4a857" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="about-title" id="about-modal-title">HiFi Cockpit</h3>
+      <p class="about-text">Designed by Dr. Mark R. Kaspers in Duisburg.<br>Made with HiFi-Love.</p>
+      <button type="button" class="btn-primary" id="btn-close-about" style="width: 100%;">Schließen</button>
+    </div>
+  </div>
+
   <main>
     <!-- TAB 1: SETUP-FINDER -->
     <section id="tab-finder" class="tab-panel active">
@@ -1054,7 +1164,7 @@
         <div class="selector-col">
           <div class="selector-header">
             <span class="selector-title">Audiokette</span>
-            <span class="selector-hint">Mobil &amp; Musikzimmer</span>
+            <span class="selector-hint">Stationär, Mobil &amp; Musikzimmer</span>
           </div>
           <div class="chip-list" id="chain-chips"></div>
         </div>
@@ -1083,19 +1193,19 @@
     <section id="tab-hardware" class="tab-panel">
       <div class="section-block">
         <h2 class="section-title">Signalwege &amp; Räume</h2>
-        <p class="section-sub">Schematische Übersicht der Ketten unter „Mobil“ (Streaming via Apple Music) und im „Musikzimmer“ (CD &amp; Vinyl am Yamaha 525).</p>
+        <p class="section-sub">Schematische Übersicht der stationären Schreibtisch-Kette, der mobilen Ketten (Streaming via Apple Music) und der Anlage im „Musikzimmer“ (CD &amp; Vinyl am Yamaha 525).</p>
 
         <div class="diagram-card">
           <div class="diagram-head">
-            <span class="diagram-title">Mobil – Stationäre Kette (Schreibtisch)</span>
+            <span class="diagram-title">Stationäre Kette (Schreibtisch)</span>
             <span class="diagram-meta">2,0 Vrms Line-Pegel · 725 mW @ 32 Ω · &lt; 1 Ω Ausgangsimpedanz</span>
           </div>
           <div class="svg-wrap">
             <svg viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg">
-              <rect x="10" y="15" width="160" height="80" rx="7" fill="#14161b" stroke="#5c9ce6" stroke-width="1.5"/>
+              <rect x="10" y="15" width="160" height="80" rx="7" fill="#14161b" stroke="#5fb384" stroke-width="1.5"/>
               <text x="90" y="42" fill="#eceef2" font-size="12" font-weight="700" text-anchor="middle" font-family="sans-serif">iPad Air M3</text>
               <text x="90" y="60" fill="#949ba6" font-size="10" text-anchor="middle" font-family="sans-serif">Apple Music Hi-Res</text>
-              <text x="90" y="78" fill="#5c9ce6" font-size="9.5" text-anchor="middle" font-family="monospace">Strom via Magic Keyboard</text>
+              <text x="90" y="78" fill="#5fb384" font-size="9.5" text-anchor="middle" font-family="monospace">Strom via Magic Keyboard</text>
               <line x1="170" y1="55" x2="225" y2="55" stroke="#d4a857" stroke-width="2"/>
               <text x="197" y="46" fill="#949ba6" font-size="9.5" text-anchor="middle" font-family="monospace">USB-C/B</text>
               <rect x="225" y="15" width="160" height="80" rx="7" fill="#14161b" stroke="#262a34" stroke-width="1.5"/>
@@ -1115,7 +1225,7 @@
               <text x="720" y="76" fill="#949ba6" font-size="9.5" text-anchor="middle" font-family="sans-serif">HD 599 · 7506 · Philips</text>
             </svg>
           </div>
-          <p class="diagram-note">Einzige Kette im Haus mit der nötigen Stromlieferfähigkeit (725 mW @ 32 Ω) für den Magnetostaten HiFiMAN HE400se sowie maximaler Membrankontrolle für den 120-Ω-Referenzhörer Sennheiser HD 560S.</p>
+          <p class="diagram-note">Stationäre Referenzkette mit Netzstromversorgung: Einzige Kette im Haus mit der nötigen Stromlieferfähigkeit (725 mW @ 32 Ω) für den Magnetostaten HiFiMAN HE400se sowie maximaler Membrankontrolle für den 120-Ω-Referenzhörer Sennheiser HD 560S.</p>
         </div>
 
         <div class="diagram-card">
@@ -1266,7 +1376,7 @@
     ];
 
     const CHAINS = [
-      { id: "mobil-desk", name: "Mobil – Topping D10s + Head Box S2", sub: "Stationäre Schreibtisch-Kette am iPad Air M3" },
+      { id: "mobil-desk", name: "Stationär – Topping D10s + Head Box S2", sub: "Stationäre Schreibtisch-Kette am iPad Air M3" },
       { id: "mobil-jm6", name: "Mobil – JCALLY JM6 Pro", sub: "Kompakter USB-C Dongle (Couch, Bett & Reise)" },
       { id: "mobil-airpods", name: "Mobil – Apple AirPods (BT / USB-C)", sub: "Kabellos oder direkt per USB-C-Kabel" },
       { id: "musikzimmer-yamaha", name: "Musikzimmer – Yamaha 525", sub: "Kopfhörerausgang für CD-S300 & Technics SL-QD33" }
@@ -1285,7 +1395,7 @@
 
     const SETUPS = [
       {
-        genreId: "70s-punch", chainId: "mobil-desk", room: "Mobil",
+        genreId: "70s-punch", chainId: "mobil-desk", room: "Stationär",
         title: "70er Rock & Analoger Kessel-Punch (Schreibtisch)",
         examples: "Fleetwood Mac (Tusk, The Chain), The Who (Baba O'Riley), Led Zeppelin, Steely Dan (Aja)",
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
@@ -1320,7 +1430,7 @@
         why: "Dank Adaptive EQ und H2-Chip halten die AirPods Max 2 den Bereich zwischen 80 und 250 Hz sehr sauber (Tipp im iOS-27-EQ: Tiefen -1, Mitten +1)."
       },
       {
-        genreId: "blues-americana", chainId: "mobil-desk", room: "Mobil",
+        genreId: "blues-americana", chainId: "mobil-desk", room: "Stationär",
         title: "Blues, Folk & Americana (Stationäre Tiefe & Weite)",
         examples: "Muddy Waters (Folk Singer), Allman Brothers, ZZ Top (Tres Hombres), Neil Young",
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
@@ -1355,7 +1465,7 @@
         why: "Gerade bei leisen, dynamischen Akustik-Blues-Aufnahmen sorgt die Ruhe der AirPods Max 2 (besonders per USB-C Lossless) für feine Durchzeichnung."
       },
       {
-        genreId: "westcoast", chainId: "mobil-desk", room: "Mobil",
+        genreId: "westcoast", chainId: "mobil-desk", room: "Stationär",
         title: "West Coast & Satzgesang (Schreibtisch-Kette)",
         examples: "Fleetwood Mac (Rumours), Buckingham Nicks, Eagles, Jackson Browne, Steely Dan, Weyes Blood",
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
@@ -1390,7 +1500,7 @@
         why: "Eine minimale Anhebung der Mitten (+1 im iOS-27-EQ oder per Audiogramm) gleicht die leichte Werkssenke bei 2–4 kHz für West-Coast-Gesang ideal aus."
       },
       {
-        genreId: "90s-modern", chainId: "mobil-desk", room: "Mobil",
+        genreId: "90s-modern", chainId: "mobil-desk", room: "Stationär",
         title: "90er/2000er Rock & Moderne Produktionen (Schreibtisch)",
         examples: "Tool (Pneuma), Daft Punk (Random Access Memories), Royal Blood, R.E.M. (Drive), Massive Attack",
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
@@ -1437,7 +1547,7 @@
         why: "Typische 80er-Produktionen mit scharfer Snare werden durch die warme „Wolldecke“ des HD 599 sofort langzeittauglich, während analytische Hörer wie der HD 560S hier zu unbarmherzig wären."
       },
       {
-        genreId: "80s-bright", chainId: "mobil-desk", room: "Mobil",
+        genreId: "80s-bright", chainId: "mobil-desk", room: "Stationär",
         title: "80er & Höhenbetonte Masterings (Stationär am Schreibtisch)",
         examples: "Bruce Springsteen, frühe CD-Masterings auf Apple Music, 80s Stadium Rock",
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
@@ -1460,7 +1570,7 @@
         why: "Da die AirPods Max 2 ab Werk im Präsenzbereich leicht zurückhaltend abgestimmt sind, klingen schrille 80er-Tracks hier angenehm entspannt."
       },
       {
-        genreId: "studio-check", chainId: "mobil-desk", room: "Mobil",
+        genreId: "studio-check", chainId: "mobil-desk", room: "Stationär",
         title: "Analytischer Studio- & Transienten-Check (Paralleler A/B-Vergleich)",
         examples: "Steely Dan (Aja), Donald Fagen (The Nightfly), Toto (IV), Nils Lofgren (Acoustic Live)",
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2 (6,35 & 3,5 mm parallel)",
@@ -1542,7 +1652,7 @@
         why: "Für unterwegs mit geschlossener Abschirmung ist der faltbare MDR-7506 ideal; im ruhigen Ferienhaus liefern HD 560S und HD 599 am JM6 Pro offenen Vollformat-Klang."
       },
       {
-        genreId: "travel-media", chainId: "mobil-desk", room: "Mobil",
+        genreId: "travel-media", chainId: "mobil-desk", room: "Stationär",
         title: "Stationärer Medien-, Gaming- & Konzertabend am Schreibtisch",
         examples: "Live-Konzerte, Musik-Dokumentationen und präzise 3D-Ortung",
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
@@ -1558,42 +1668,42 @@
     const PROFILES = [
       {
         name: "Sennheiser HD 560S", type: "Offener Referenz- & Analyse-Kopfhörer · Dynamisch (E.A.R.)", imp: "120 Ω", sens: "110 dB/V",
-        rooms: "Mobil (Desk & JM6 Pro) · Musikzimmer (CD-Favorit am Yamaha)",
+        rooms: "Stationär (Desk) · Mobil (JM6 Pro) · Musikzimmer (CD-Favorit am Yamaha)",
         punch: "Schnurgerader, knochentrockener Tiefton bis 30 Hz ohne Oberbass-Matsch – die geliebte Luftigkeit eines AKG K701, aber mit echtem, konturiertem Fundament („etwas Bass, aber nicht zu viel“).",
         amp: "Dank 120 Ω und hohem Wirkungsgrad (110 dB/V) ein echter Spagat-Meister: Spielt am JM6 Pro dynamisch auf, wird an der Head Box S2 eisern kontrolliert und dämpft am hochohmigen Yamaha 525 sauber ab.",
         notes: "Deine offene, druckfreie Studio-Referenz mit angewinkelten Treibern für realistische Bühnenstaffelung, klaren Saiten-Biss (4–6 kHz) und präzise Instrumententrennung."
       },
       {
         name: "Sennheiser HD 599", type: "Offener HiFi-Kopfhörer · Dynamisch", imp: "50 Ω (>200 Ω @ 100 Hz)", sens: "106 dB/V",
-        rooms: "Mobil (JM6 Pro & Desk) · Musikzimmer (Vinyl-Favorit)",
+        rooms: "Mobil (JM6 Pro) · Stationär (Desk) · Musikzimmer (Vinyl-Favorit)",
         punch: "Warm, holzig und körperhaft im Oberbass; legt eine gemütliche „Wolldecke“ über scharfe Snares und spitze 80er/90er-Höhen.",
         amp: "An Head Box S2 und JM6 Pro (< 1 Ω) kontrolliert und ausgewogen; am Yamaha 525 (> 100 Ω) mit deutlichem 100-Hz-Wärmeschub.",
         notes: "Wie ein bequemes Sofa zum Ankommen: erste Wahl für Vinyl, für eine gemütliche Tasse Kaffee oder Tee am Dongle und zum Entschärfen greller Masterings."
       },
       {
         name: "HiFiMAN HE400se", type: "Offener Magnetostat (Planar-Magnetisch)", imp: "32 Ω (linear)", sens: "91 dB/mW",
-        rooms: "Exklusiv Mobil – Schreibtisch (Topping D10s + Head Box S2)",
+        rooms: "Exklusiv Stationär – Schreibtisch (Topping D10s + Head Box S2)",
         punch: "Ultraschnelle Transienten und messerscharfe Schichtung einzelner Toms im Raum ohne künstliche Aufdickung.",
-        amp: "Benötigt hohe Stromlieferfähigkeit (Current). Läuft exklusiv an der Pro-Ject Head Box S2 (725 mW @ 32 Ω) zur Hochform auf.",
+        amp: "Benötigt hohe Stromlieferfähigkeit (Current). Läuft exklusiv an der stationären Pro-Ject Head Box S2 (725 mW @ 32 Ω) zur Hochform auf.",
         notes: "Das Vergrößerungsglas für 70er-Jahre-Referenzaufnahmen (Baba O'Riley, Aja, Dark Side of the Moon), komplexe Passagen (November Rain) und akustischen Blues."
       },
       {
         name: "Sony MDR-7506", type: "Geschlossener Studio-Klassiker · Faltbar", imp: "63 Ω", sens: "106 dB/mW",
-        rooms: "Musikzimmer (CD) · Mobil (Desk A/B & Reise)",
+        rooms: "Musikzimmer (CD) · Stationär (Desk A/B) · Mobil (Reise)",
         punch: "Fokussiert auf den knackigen, isolierten Anschlag-Klick der Felle (100–120 Hz), fällt unter 50 Hz trocken ab.",
         amp: "An Head Box S2 und JM6 Pro eine unbestechliche Nahfeld-Lupe. Am hochohmigen Ausgang des Yamaha 525 werden die präsenten Höhen angenehm entschärft.",
         notes: "Durch den Klappmechanismus und die geschlossene Isolation ideal für das Reise-Hardcase sowie für die direkte Fehlersuche im Mix."
       },
       {
         name: "Philips Fidelio X2HR", type: "Offener HiFi-Kopfhörer · 50-mm-Treiber", imp: "30 Ω", sens: "100 dB/mW",
-        rooms: "Mobil (JM6 Pro & Desk) · Musikzimmer (Vinyl)",
+        rooms: "Mobil (JM6 Pro) · Stationär (Desk) · Musikzimmer (Vinyl)",
         punch: "Großvolumiger, satter Ober- und Tiefbass mit breiter Kulisse; verleiht Stand-Toms eine imposante Stadion-Größe.",
         amp: "Sehr leicht anzutreiben. Spielt bereits am JCALLY JM6 Pro mit vollem Druck; an der Head Box S2 im unteren Poti-Bereich nutzen.",
         notes: "Macht dünnen 80er- und 90er-Rock-Produktionen Beine und bietet eine wohlige Alternative für Vinyl-Abende."
       },
       {
         name: "Philips SHP9500", type: "Offener Kopfhörer · Luftig & Neutral", imp: "32 Ω", sens: "101 dB/mW",
-        rooms: "Mobil (JM6 Pro & Desk)",
+        rooms: "Mobil (JM6 Pro) · Stationär (Desk)",
         punch: "Schlanker, schneller und trockener Bassbereich; legt den Fokus auf Mitten, Gesangsharmonien und Akustikgitarren.",
         amp: "An JM6 Pro und Head Box S2 vollkommen unkritisch und direkt.",
         notes: "Leichtgewicht für West-Coast-Satzgesang (Rumours, Eagles, Fleet Foxes), Folk und lange, luftige Hörsessions."
@@ -1685,9 +1795,9 @@
       if (!list.length) {
         let msg = "Für diese Filter-Kombination liegt kein technisch sinnvolles Setup vor.";
         if ((selGenre === "cd" || selGenre === "vinyl") && selChain && selChain !== "musikzimmer-yamaha") {
-          msg = "CD und Vinyl stehen fest im Musikzimmer am Yamaha 525 und sind nicht mit den mobilen Ketten verbunden.";
+          msg = "CD und Vinyl stehen fest im Musikzimmer am Yamaha 525 und sind nicht mit der Schreibtisch-Kette oder den mobilen Ketten verbunden.";
         } else if (selHp === "HiFiMAN HE400se" && selChain && selChain !== "mobil-desk") {
-          msg = "Der HiFiMAN HE400se benötigt die 725 mW der Pro-Ject Head Box S2 am Schreibtisch; nutze am JM6 Pro oder Yamaha 525 stattdessen den Sennheiser HD 560S.";
+          msg = "Der HiFiMAN HE400se benötigt die 725 mW der stationären Pro-Ject Head Box S2 am Schreibtisch; nutze am JM6 Pro oder Yamaha 525 stattdessen den Sennheiser HD 560S.";
         } else if ((selHp === "Apple AirPods Max 2" || selHp === "Apple AirPods Pro 3") && selChain && selChain !== "mobil-airpods") {
           msg = "Die Apple AirPods arbeiten autark mit eigenem H2-Chip und werden ohne externe Verstärker betrieben.";
         }
@@ -1703,7 +1813,10 @@
 
       box.innerHTML = list.map(s => {
         const podium = rank1Only ? [s.podium[0]] : s.podium;
-        const badgeCls = s.room === "Mobil" ? "badge-mobil" : "badge-musikzimmer";
+        let badgeCls = "badge-musikzimmer";
+        if (s.room === "Stationär") badgeCls = "badge-stationaer";
+        else if (s.room === "Mobil") badgeCls = "badge-mobil";
+
         return `
           <article class="card">
             <div>
@@ -1834,7 +1947,7 @@
 
       if (p === "blues-americana" || g.includes("blues") || g.includes("folk") || g.includes("country") || g.includes("americana")) {
         return {
-          bestChain: "Mobil – Topping D10s + Pro-Ject Head Box S2 (Sofa: JCALLY JM6 Pro)",
+          bestChain: "Stationär – Topping D10s + Pro-Ject Head Box S2 (Sofa: JCALLY JM6 Pro)",
           bestHp: "🥇 HiFiMAN HE400se",
           altHp: "🥈 Sennheiser HD 560S · 🥉 Sennheiser HD 599",
           why: "Die 725 mW der Head Box S2 lösen feinste Holzfaser-Texturen am HE400se auf; am JM6 Pro bieten der HD 560S (lineare Klarheit) und der HD 599 (erdige Wärme) das ideale Duo."
@@ -1843,7 +1956,7 @@
 
       if (p === "westcoast" || g.includes("singer") || g.includes("soft") || g.includes("indie")) {
         return {
-          bestChain: "Mobil – Topping D10s + Pro-Ject Head Box S2 (Sofa: JCALLY JM6 Pro)",
+          bestChain: "Stationär – Topping D10s + Pro-Ject Head Box S2 (Sofa: JCALLY JM6 Pro)",
           bestHp: "🥇 HiFiMAN HE400se",
           altHp: "🥈 Sennheiser HD 560S · 🥉 Sennheiser HD 599",
           why: "Hohe Kanaltrennung für gestaffelten Satzgesang an HE400se und HD 560S; für den samtigen California-Schmelz auf dem Sofa greifst du zum HD 599."
@@ -1852,7 +1965,7 @@
 
       if (p === "studio-check" || g.includes("jazz") || g.includes("electronic")) {
         return {
-          bestChain: "Mobil – Topping D10s + Pro-Ject Head Box S2 (2,0 Vrms · < 1 Ω)",
+          bestChain: "Stationär – Topping D10s + Pro-Ject Head Box S2 (2,0 Vrms · < 1 Ω)",
           bestHp: "🥇 Sennheiser HD 560S",
           altHp: "🥈 HiFiMAN HE400se · 🥉 Sony MDR-7506",
           why: "Unbestechliche Studio-Referenz: Der HD 560S verbindet offenen, dreidimensionalen Raum mit einem schnurgeraden Tiefbass bis 30 Hz und messerscharfer Ortung."
@@ -1870,15 +1983,15 @@
 
       if (p === "70s-punch" || (y >= 1965 && y <= 1980)) {
         return {
-          bestChain: "Mobil – Topping D10s + Pro-Ject Head Box S2 (725 mW @ 32 Ω)",
+          bestChain: "Stationär – Topping D10s + Pro-Ject Head Box S2 (725 mW @ 32 Ω)",
           bestHp: "🥇 HiFiMAN HE400se",
           altHp: "🥈 Sennheiser HD 560S (am JM6 Pro & Yamaha CD auf Platz 1)",
-          why: "Paradedisziplin für deine Hauptkette: Der HE400se staffelt große Stand-Toms plastisch im Raum, während der HD 560S auch mobil am Dongle trockenen, linearen Punch liefert."
+          why: "Paradedisziplin für deine stationäre Hauptkette: Der HE400se staffelt große Stand-Toms plastisch im Raum, während der HD 560S auch mobil am Dongle trockenen, linearen Punch liefert."
         };
       }
 
       return {
-        bestChain: "Mobil – Topping D10s + Head Box S2 (Mobil: JCALLY JM6 Pro)",
+        bestChain: "Stationär – Topping D10s + Head Box S2 (Mobil: JCALLY JM6 Pro)",
         bestHp: "🥇 HiFiMAN HE400se",
         altHp: "🥈 Sennheiser HD 560S · 🥉 Philips Fidelio X2HR",
         why: "HE400se und HD 560S trennen komplexe moderne Spuren und tiefe Drums ohne Maskierung sauber auf; für rohe Gitarrenwände liefert der Fidelio X2HR sattes Fundament."
@@ -2225,6 +2338,33 @@
     // ========================================================================
     // 4. ROBUSTE EVENT-BINDUNG & INITIALISIERUNG
     // ========================================================================
+    const aboutBackdrop = document.getElementById("about-modal-backdrop");
+    const brandTrigger = document.getElementById("brand-logo-trigger");
+    const closeAboutBtn = document.getElementById("btn-close-about");
+
+    function openAboutModal() {
+      if (aboutBackdrop) aboutBackdrop.classList.add("open");
+    }
+
+    function closeAboutModal() {
+      if (aboutBackdrop) aboutBackdrop.classList.remove("open");
+    }
+
+    brandTrigger?.addEventListener("click", openAboutModal);
+    brandTrigger?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openAboutModal();
+      }
+    });
+    closeAboutBtn?.addEventListener("click", closeAboutModal);
+    aboutBackdrop?.addEventListener("click", (e) => {
+      if (e.target === aboutBackdrop) closeAboutModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeAboutModal();
+    });
+
     document.addEventListener("click", (e) => {
       const tabBtn = e.target.closest("[data-tab]");
       if (tabBtn) {
