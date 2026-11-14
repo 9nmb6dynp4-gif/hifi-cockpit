@@ -7,6 +7,94 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="HiFi Cockpit">
   <title>HiFi Cockpit</title>
+
+  <!-- Synchroner Generator für Logo Nr. 1 als Apple-Homescreen-Icon (512x512 PNG) -->
+  <script>
+    (function() {
+      try {
+        var canvas = document.createElement("canvas");
+        canvas.width = 512;
+        canvas.height = 512;
+        var ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        function rRect(x, y, w, h, tl, tr, br, bl) {
+          ctx.beginPath();
+          ctx.moveTo(x + tl, y);
+          ctx.lineTo(x + w - tr, y);
+          ctx.quadraticCurveTo(x + w, y, x + w, y + tr);
+          ctx.lineTo(x + w, y + h - br);
+          ctx.quadraticCurveTo(x + w, y + h, x + w - br, y + h);
+          ctx.lineTo(x + bl, y + h);
+          ctx.quadraticCurveTo(x, y + h, x, y + h - bl);
+          ctx.lineTo(x, y + tl);
+          ctx.quadraticCurveTo(x, y, x + tl, y);
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        // Hintergrund (#14161b)
+        ctx.fillStyle = "#14161b";
+        ctx.fillRect(0, 0, 512, 512);
+
+        // Goldton (#d4a857)
+        ctx.strokeStyle = "#d4a857";
+        ctx.fillStyle = "#d4a857";
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+
+        // Kopfhörer-Hauptbügel
+        ctx.lineWidth = 24;
+        ctx.beginPath();
+        ctx.arc(256, 260, 142, Math.PI * 0.98, Math.PI * 0.02, false);
+        ctx.stroke();
+
+        // Kopfpolster-Verstärkung oben am Bügel
+        ctx.lineWidth = 34;
+        ctx.beginPath();
+        ctx.arc(256, 260, 140, Math.PI * 1.18, Math.PI * 1.82, false);
+        ctx.stroke();
+
+        // Linke Ohrmuschel (Außenschale + Innenpolster mit Spalt)
+        rRect(96, 248, 36, 134, 24, 6, 6, 24);
+        rRect(140, 248, 34, 134, 6, 16, 16, 6);
+
+        // Rechte Ohrmuschel (Innenpolster + Außenschale mit Spalt)
+        rRect(338, 248, 34, 134, 16, 6, 6, 16);
+        rRect(380, 248, 36, 134, 6, 24, 24, 6);
+
+        // Akustische Impuls-Welle in der Mitte
+        ctx.lineWidth = 14;
+        ctx.beginPath();
+        ctx.moveTo(196, 314);
+        ctx.lineTo(216, 314);
+        ctx.lineTo(228, 274);
+        ctx.lineTo(241, 348);
+        ctx.lineTo(256, 226);
+        ctx.lineTo(271, 368);
+        ctx.lineTo(284, 284);
+        ctx.lineTo(295, 328);
+        ctx.lineTo(304, 314);
+        ctx.lineTo(316, 314);
+        ctx.stroke();
+
+        var dataUrl = canvas.toDataURL("image/png");
+
+        var appleIcon = document.createElement("link");
+        appleIcon.rel = "apple-touch-icon";
+        appleIcon.sizes = "180x180";
+        appleIcon.href = dataUrl;
+        document.head.appendChild(appleIcon);
+
+        var favIcon = document.createElement("link");
+        favIcon.rel = "icon";
+        favIcon.type = "image/png";
+        favIcon.href = dataUrl;
+        document.head.appendChild(favIcon);
+      } catch (e) {}
+    })();
+  </script>
+
   <style>
     :root {
       --bg: #0c0d10;
@@ -76,21 +164,22 @@
     }
 
     .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      background: var(--elevated);
-      border: 1px solid var(--gold);
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: #14161b;
+      border: 1px solid rgba(212, 168, 87, 0.55);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
     }
 
     .brand-mark svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--gold);
+      width: 26px;
+      height: 26px;
+      display: block;
     }
 
     .brand-title {
@@ -924,10 +1013,16 @@
   <header>
     <div class="header-inner">
       <div class="brand">
-        <div class="brand-mark">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+        <!-- Logo Nr. 1 direkt als SVG-Markenzeichen im Header -->
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 114 260 A 142 142 0 0 1 398 260" fill="none" stroke="#d4a857" stroke-width="26" stroke-linecap="round"/>
+            <path d="M 138 180 A 140 140 0 0 1 374 180" fill="none" stroke="#d4a857" stroke-width="36" stroke-linecap="round"/>
+            <rect x="96" y="248" width="36" height="134" rx="16" fill="#d4a857"/>
+            <rect x="140" y="248" width="34" height="134" rx="10" fill="#d4a857"/>
+            <rect x="338" y="248" width="34" height="134" rx="10" fill="#d4a857"/>
+            <rect x="380" y="248" width="36" height="134" rx="16" fill="#d4a857"/>
+            <polyline points="196,314 216,314 228,274 241,348 256,226 271,368 284,284 295,328 304,314 316,314" fill="none" stroke="#d4a857" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <div>
@@ -967,7 +1062,7 @@
         <div class="selector-col">
           <div class="selector-header">
             <span class="selector-title">Kopfhörer</span>
-            <span class="selector-hint" id="hp-count-hint">Einzelmodelle</span>
+            <span class="selector-hint" id="hp-count-hint">8 Einzelmodelle</span>
           </div>
           <div class="chip-list" id="hp-chips"></div>
         </div>
@@ -1016,11 +1111,11 @@
               <line x1="610" y1="55" x2="650" y2="55" stroke="#d4a857" stroke-width="2"/>
               <rect x="650" y="15" width="140" height="80" rx="7" fill="#1c1f26" stroke="#d4a857" stroke-width="1.5"/>
               <text x="720" y="42" fill="#eceef2" font-size="11.5" font-weight="700" text-anchor="middle" font-family="sans-serif">Kabel-Kopfhörer</text>
-              <text x="720" y="60" fill="#949ba6" font-size="9.5" text-anchor="middle" font-family="sans-serif">HE400se · MDR-M1</text>
+              <text x="720" y="60" fill="#949ba6" font-size="9.5" text-anchor="middle" font-family="sans-serif">HE400se · HD 560S</text>
               <text x="720" y="76" fill="#949ba6" font-size="9.5" text-anchor="middle" font-family="sans-serif">HD 599 · 7506 · Philips</text>
             </svg>
           </div>
-          <p class="diagram-note">Einzige Kette im Haus mit der nötigen Stromlieferfähigkeit (725 mW @ 32 Ω) für den Magnetostaten HiFiMAN HE400se sowie für parallele A/B-Vergleiche.</p>
+          <p class="diagram-note">Einzige Kette im Haus mit der nötigen Stromlieferfähigkeit (725 mW @ 32 Ω) für den Magnetostaten HiFiMAN HE400se sowie maximaler Membrankontrolle für den 120-Ω-Referenzhörer Sennheiser HD 560S.</p>
         </div>
 
         <div class="diagram-card">
@@ -1041,7 +1136,7 @@
               <line x1="460" y1="39" x2="520" y2="39" stroke="#d4a857" stroke-width="2"/>
               <rect x="520" y="10" width="270" height="58" rx="7" fill="#1c1f26" stroke="#d4a857" stroke-width="1.5"/>
               <text x="655" y="33" fill="#eceef2" font-size="11.5" font-weight="700" text-anchor="middle" font-family="sans-serif">Dynamische Kabel-Hörer</text>
-              <text x="655" y="51" fill="#949ba6" font-size="10" text-anchor="middle" font-family="sans-serif">MDR-M1 · HD 599 · MDR-7506 · X2HR · SHP9500</text>
+              <text x="655" y="51" fill="#949ba6" font-size="10" text-anchor="middle" font-family="sans-serif">HD 560S · HD 599 · MDR-7506 · X2HR · SHP9500</text>
               <path d="M 165 90 L 235 110" stroke="#5c9ce6" stroke-width="2" stroke-dasharray="4,3" fill="none"/>
               <rect x="235" y="82" width="225" height="58" rx="7" fill="#14161b" stroke="#262a34" stroke-width="1.5"/>
               <text x="347" y="106" fill="#eceef2" font-size="12" font-weight="700" text-anchor="middle" font-family="sans-serif">Direkt-Übertragung</text>
@@ -1052,7 +1147,7 @@
               <text x="655" y="123" fill="#949ba6" font-size="10" text-anchor="middle" font-family="sans-serif">Apple AirPods Max 2 · Apple AirPods Pro 3</text>
             </svg>
           </div>
-          <p class="diagram-note">Der JM6 Pro treibt alle dynamischen Hörer (30–63 Ω) verzerrungsfrei und ohne Impedanzverbiegung an. Die AirPods arbeiten autark über ihren internen H2-DSP.</p>
+          <p class="diagram-note">Der JM6 Pro treibt alle dynamischen Hörer inklusive des hocheffizienten 120-Ω-Wandlers im Sennheiser HD 560S (110 dB/V) verzerrungsfrei an. Die AirPods arbeiten autark über ihren internen H2-DSP.</p>
         </div>
 
         <div class="diagram-card">
@@ -1077,17 +1172,17 @@
               <line x1="500" y1="75" x2="555" y2="75" stroke="#d4a857" stroke-width="2"/>
               <rect x="555" y="35" width="235" height="80" rx="7" fill="#1c1f26" stroke="#d4a857" stroke-width="1.5"/>
               <text x="672" y="60" fill="#eceef2" font-size="11.5" font-weight="700" text-anchor="middle" font-family="sans-serif">Musikzimmer-Hörer</text>
-              <text x="672" y="79" fill="#949ba6" font-size="10" text-anchor="middle" font-family="sans-serif">Vinyl: HD 599 · MDR-M1 · X2HR</text>
-              <text x="672" y="96" fill="#949ba6" font-size="10" text-anchor="middle" font-family="sans-serif">CD: MDR-7506 · MDR-M1 · HD 599</text>
+              <text x="672" y="79" fill="#949ba6" font-size="10" text-anchor="middle" font-family="sans-serif">Vinyl: HD 599 · X2HR · HD 560S</text>
+              <text x="672" y="96" fill="#949ba6" font-size="10" text-anchor="middle" font-family="sans-serif">CD: HD 560S · MDR-7506 · HD 599</text>
             </svg>
           </div>
-          <p class="diagram-note">Die hohe Ausgangsimpedanz des Yamaha 525 schiebt die 100-Hz-Impedanzspitze des Sennheiser HD 599 gezielt an (warmer Grundton für Vinyl) und mildert den Hochton des Sony MDR-7506 bei CDs.</p>
+          <p class="diagram-note">Am Yamaha 525 punktet der 120-Ω-Treiber des HD 560S mit sauberer Dämpfung und straffem Bass für CDs, während der HD 599 durch seine 100-Hz-Impedanzspitze einen warmen Grundton-Schub für Vinyl erhält.</p>
         </div>
       </div>
 
       <div class="section-block">
         <h2 class="section-title">Kopfhörer-Kurzprofile &amp; Raum-Zuordnung</h2>
-        <p class="section-sub">Steckbriefe aller Einzelmodelle mit Fokus auf Kessel-Punch (80–250 Hz) und Verstärker-Verhalten.</p>
+        <p class="section-sub">Steckbriefe aller acht Einzelmodelle mit Fokus auf Kessel-Punch (80–250 Hz), Tiefbass-Linearität und Verstärker-Verhalten.</p>
         <div class="profiles-grid" id="profiles-container"></div>
       </div>
     </section>
@@ -1118,12 +1213,12 @@
             <summary class="criteria-summary">Angelegte Klang- &amp; Auswahlkriterien anzeigen</summary>
             <div class="criteria-grid">
               <div class="criteria-item">
-                <strong>1. Kessel-Punch (80–250 Hz)</strong>
-                Bevorzugt Aufnahmen mit tief gestimmten Stand-/Hängetoms, hölzerner Kessel-Resonanz und spürbarem Oberbass-Körper statt künstlichem Subbass-Dröhnen (20–60 Hz).
+                <strong>1. Kessel-Punch &amp; Kontur</strong>
+                Bevorzugt Aufnahmen mit tief gestimmten Stand-/Hängetoms, hölzerner Kessel-Resonanz (80–250 Hz) und trockenem, linearem Tiefbass statt künstlichem Subbass-Dröhnen.
               </div>
               <div class="criteria-item">
                 <strong>2. Ära &amp; Mastering-Signatur</strong>
-                Fokus auf analoge Bandmaschinen-Sättigung (späte 60er, 1970er, frühe 90er) und saubere Remaster; schneidende 80er-Gated-Reverb-Snares werden gefiltert oder per Hörer-Wahl entschärft.
+                Fokus auf analoge Bandmaschinen-Sättigung (späte 60er, 1970er, frühe 90er) und saubere Remaster; schneidende 80er-Gated-Reverb-Snares werden per Hörer-Wahl (HD 599) entschärft.
               </div>
               <div class="criteria-item">
                 <strong>3. Transienten &amp; Pausen-Stille</strong>
@@ -1131,11 +1226,11 @@
               </div>
               <div class="criteria-item">
                 <strong>4. Räumliche Tiefe &amp; Harmonie</strong>
-                Weite Bühnenstaffelung (Akustik-Raummikrofone, Doppel-Drums) sowie mehrstimmiger Satzgesang ohne Verdeckung im Mittenband.
+                Weite Bühnenstaffelung (ideal für HE400se und die angewinkelten E.A.R.-Treiber des HD 560S) sowie mehrstimmiger Satzgesang ohne Verdeckung im Mittenband.
               </div>
               <div class="criteria-item">
                 <strong>5. Elektrisches Ketten-Matching</strong>
-                Jedes Album wird nach Dynamikbedarf, Impedanz-Interaktion und Tonbalance der optimalen Kette (Head Box S2, JM6 Pro, Yamaha 525, AirPods USB-C) und dem besten Kopfhörer zugeordnet.
+                Jedes Album wird nach Dynamikbedarf, Impedanz-Interaktion (z. B. 120 Ω des HD 560S vs. 50 Ω des HD 599) und Tonbalance der optimalen Kette zugeordnet.
               </div>
             </div>
           </details>
@@ -1178,7 +1273,7 @@
     ];
 
     const HEADPHONES = [
-      { id: "Sony MDR-M1", name: "Sony MDR-M1", sub: "Geschlossener Studio-Monitor" },
+      { id: "Sennheiser HD 560S", name: "Sennheiser HD 560S", sub: "Offener Referenz- & Analyse-Hörer (120 Ω)" },
       { id: "Sennheiser HD 599", name: "Sennheiser HD 599", sub: "Offener Komfort- & Wohlfühl-Hörer" },
       { id: "HiFiMAN HE400se", name: "HiFiMAN HE400se", sub: "Offener Magnetostat (Planar)" },
       { id: "Sony MDR-7506", name: "Sony MDR-7506", sub: "Faltbarer Klassiker & Studio-Lupe" },
@@ -1196,10 +1291,10 @@
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
         podium: [
           { hp: "HiFiMAN HE400se", role: "Maximale Planar-Auflösung, schnelle Tom-Kontur und tief gestaffelte Bühne" },
-          { hp: "Sony MDR-M1", role: "Geschlossener Resonanzdruck für körperlichen Kessel-Einschlag (80–250 Hz)" },
+          { hp: "Sennheiser HD 560S", role: "Knochentrockener, linearer Tiefbass bis 30 Hz und präzise Ortung durch angewinkelte E.A.R.-Treiber" },
           { hp: "Philips Fidelio X2HR", role: "Große, erdige Stadion-Wucht mit sattem Oberbass-Fundament" }
         ],
-        why: "Die 725 mW der Head Box S2 liefern den nötigen Strom, damit der HE400se große Stand-Toms souverän kontrolliert. Für geschlossenen Druck steckt der MDR-M1 parallel bereit."
+        why: "Die Head Box S2 liefert den nötigen Strom für den HE400se und führt die 120-Ω-Schwingspule des HD 560S mit maximalem Dämpfungsfaktor – ideal für den direkten Vergleich zwischen Planar-Bühne und linearer Studio-Referenz."
       },
       {
         genreId: "70s-punch", chainId: "mobil-jm6", room: "Mobil",
@@ -1207,11 +1302,11 @@
         examples: "Fleetwood Mac (Tusk, Rumours), Rolling Stones, Peter Gabriel (Biko)",
         chainText: "iPad / iPhone -> JCALLY JM6 Pro -> Kabel-Kopfhörer",
         podium: [
-          { hp: "Sony MDR-M1", role: "Direkter, trockener Kessel-Punch mit voller Dynamik direkt am Dongle" },
-          { hp: "Sennheiser HD 599", role: "Warmer, holziger Grundton um 100–200 Hz für entspannte Couch-Sessions" },
+          { hp: "Sennheiser HD 560S", role: "Liefert dank 110 dB/V auch am Dongle trockenen Kickdrum-Punch und klare Trennung ohne Oberbass-Matsch" },
+          { hp: "Sennheiser HD 599", role: "Warmer, holziger Grundton um 100–200 Hz für gemütliche Couch-Sessions" },
           { hp: "Philips Fidelio X2HR", role: "Wirkungsgradstarker Open-Back-Sound mit körperhafter Tom-Wiedergabe" }
         ],
-        why: "Am JM6 Pro (bis 1,6 Vrms, < 1 Ω Ausgangsimpedanz) spielt der effiziente Sony MDR-M1 seine physische Kessel-Wucht voll aus, während der HE400se am Schreibtisch bleibt."
+        why: "Am JM6 Pro schlägt der effiziente HD 560S die Brücke zum HE400se: Er bringt die geliebte K701-Luftigkeit mit genau der richtigen Prise trockenem Tiefbass auf das Sofa."
       },
       {
         genreId: "70s-punch", chainId: "mobil-airpods", room: "Mobil",
@@ -1231,10 +1326,10 @@
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
         podium: [
           { hp: "HiFiMAN HE400se", role: "Feinste Holzfaser-Textur bei Akustikgitarren und Trennung zweier Drumsets" },
-          { hp: "Sennheiser HD 599", role: "Organischer, erdiger Grundton für weite Americana-Landschaften" },
-          { hp: "Philips SHP9500", role: "Luftige, offene Mitten für unverfärbte Gesangs- und Gitarrenabbildung" }
+          { hp: "Sennheiser HD 560S", role: "Unverfärbte, luftige Darstellung von Dobro, Gitarren-Anriss und Raumtiefe mit sauberem Fundament" },
+          { hp: "Sennheiser HD 599", role: "Organischer, erdiger Grundton für entspannte Americana-Landschaften" }
         ],
-        why: "Akustischer Chicago-Blues und weite Americana-Produktionen profitieren enorm von der schnellen Impulsantwort des HE400se an der Head Box S2."
+        why: "Akustischer Chicago-Blues und weite Americana-Produktionen profitieren enorm von der schnellen Impulsantwort des HE400se und der linearen Raumabbildung des HD 560S."
       },
       {
         genreId: "blues-americana", chainId: "mobil-jm6", room: "Mobil",
@@ -1242,11 +1337,11 @@
         examples: "Stevie Ray Vaughan (Tin Pan Alley), John Mayall, Ry Cooder, Calexico, Fleet Foxes",
         chainText: "iPad / iPhone -> JCALLY JM6 Pro -> Kabel-Kopfhörer",
         podium: [
-          { hp: "Sennheiser HD 599", role: "Natürliche Wärme und weite, offene Bühne ohne jede Schärfe" },
-          { hp: "Sony MDR-M1", role: "Staubtrockener Texas-Blues-Groove mit engem Fokus auf Bass und Stand-Tom" },
+          { hp: "Sennheiser HD 560S", role: "Präzise Saiten-Transienten, natürliche Mitten und realistische Bühnenstaffelung direkt am Dongle" },
+          { hp: "Sennheiser HD 599", role: "Natürliche Wärme und weite, offene Bühne für die gemütliche Tasse Kaffee oder Tee" },
           { hp: "Philips SHP9500", role: "Leichtgewichtiger, transparenter Begleiter für intime Akustik-Aufnahmen" }
         ],
-        why: "Die niedrige Ausgangsimpedanz des JM6 Pro hält den Sennheiser HD 599 sauber kontrolliert, während seine offene Bauweise die Weite nordamerikanischer Alben greifbar macht."
+        why: "Am JM6 Pro hast du die freie Wahl nach Stimmung: Der HD 560S liefert ungeschminkte Studio-Klarheit mit trockenem Bass, der HD 599 wohlige Feierabend-Wärme."
       },
       {
         genreId: "blues-americana", chainId: "mobil-airpods", room: "Mobil",
@@ -1266,10 +1361,10 @@
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
         podium: [
           { hp: "HiFiMAN HE400se", role: "Trennt mehrstimmigen Satzgesang und Akustikgitarren-Arpeggios mühelos auf" },
-          { hp: "Philips SHP9500", role: "Hervorragende Mitten-Neutralität für natürliche Frauen- und Männerstimmen" },
+          { hp: "Sennheiser HD 560S", role: "Legendäre Sennheiser-Stimmneutralität ohne Schleier, kombiniert mit scharfer Ortung im Stereobild" },
           { hp: "Sennheiser HD 599", role: "Goldener California-Schmelz mit entspanntem Hochton" }
         ],
-        why: "Mehrstimmige Harmonien (wie bei Rumours oder den Eagles) verlangen nach hoher Kanaltrennung und verzerrungsfreien Mitten."
+        why: "Mehrstimmige Harmonien (wie bei Rumours oder den Eagles) verlangen nach hoher Kanaltrennung und verzerrungsfreien Mitten – Paradedisziplin für HE400se und HD 560S."
       },
       {
         genreId: "westcoast", chainId: "mobil-jm6", room: "Mobil",
@@ -1278,10 +1373,10 @@
         chainText: "iPad / iPhone -> JCALLY JM6 Pro -> Kabel-Kopfhörer",
         podium: [
           { hp: "Sennheiser HD 599", role: "Samtiger West-Coast-Vibe mit geschmeidiger Stimmwiedergabe auf dem Sofa" },
-          { hp: "Philips SHP9500", role: "Offene, luftige Darstellung für feine Gitarren-Pickings und Chöre" },
-          { hp: "Sony MDR-M1", role: "Fokus auf das rhythmische Fundament aus Bassgitarre und trockener Kickdrum" }
+          { hp: "Sennheiser HD 560S", role: "Glasklare Trennung mehrstimmiger Chöre und feiner Gitarren-Pickings mit straffem Basslauf" },
+          { hp: "Philips SHP9500", role: "Offene, luftige Darstellung für entspanntes Nebenbeihören" }
         ],
-        why: "Am JM6 Pro spielen der HD 599 und der SHP9500 ihre hohe Empfindlichkeit voll aus und liefern den entspannten 70s-California-Sound."
+        why: "Am JM6 Pro ergänzen sich deine beiden Sennheiser perfekt: Der HD 599 für den warmen Kuschel-Sound, der HD 560S für unverfälschte Transparenz."
       },
       {
         genreId: "westcoast", chainId: "mobil-airpods", room: "Mobil",
@@ -1300,11 +1395,11 @@
         examples: "Tool (Pneuma), Daft Punk (Random Access Memories), Royal Blood, R.E.M. (Drive), Massive Attack",
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
         podium: [
-          { hp: "Sony MDR-M1", role: "Schält Kickdrum und Toms auch aus dichten Gitarrenwänden präzise heraus" },
-          { hp: "HiFiMAN HE400se", role: "Schnelle Impulsverarbeitung bei komplexen modernen Drum-Kaskaden (z. B. Tool)" },
-          { hp: "Philips Fidelio X2HR", role: "Massiver, druckvoller Auftritt für moderne Rock- und Elektronik-Alben" }
+          { hp: "HiFiMAN HE400se", role: "Schnelle Impulsverarbeitung bei komplexen modernen Drum-Kaskaden (z. B. Tool oder November Rain Outro)" },
+          { hp: "Sennheiser HD 560S", role: "Lineare Tiefbass-Erweiterung bis 30 Hz und hohe Transienten-Schärfe bei sauberen modernen Produktionen" },
+          { hp: "Philips Fidelio X2HR", role: "Massiver, druckvoller Auftritt für dichte Rock- und Elektronik-Alben" }
         ],
-        why: "Komplexe oder verdichtete Masterings profitieren von der eisernen Membrankontrolle der Head Box S2 und der geschlossenen Fokus-Arbeit des MDR-M1."
+        why: "Wo der HD 599 bei dichten Arrangements (wie November Rain) durch Oberbass-Maskierung verschwimmt, sezieren HE400se und HD 560S an der Head Box S2 jede Spur."
       },
       {
         genreId: "90s-modern", chainId: "mobil-jm6", room: "Mobil",
@@ -1312,11 +1407,11 @@
         examples: "Tool, Royal Blood, R.E.M. (Automatic for the People), Daft Punk, Massive Attack",
         chainText: "iPad / iPhone -> JCALLY JM6 Pro -> Kabel-Kopfhörer",
         podium: [
-          { hp: "Sony MDR-M1", role: "Kompromissloser Rhythmus-Punch und saubere Isolation am mobilen Dongle" },
-          { hp: "Philips Fidelio X2HR", role: "Großer Spaßfaktor, sattes Fundament und weite Kulisse ohne Schärfe" },
-          { hp: "Sennheiser HD 599", role: "Nimmt dicht komprimierten Rock-Alben die Ermüdung bei längeren Sessions" }
+          { hp: "Philips Fidelio X2HR", role: "Großer Spaßfaktor, sattes Fundament und weite Kulisse ohne Schärfe bei Gitarrenwänden" },
+          { hp: "Sennheiser HD 560S", role: "Trockene Basskontur und präzise Schichten-Trennung bei audiophil abgemischten modernen Alben" },
+          { hp: "Sennheiser HD 599", role: "Nimmt harsch oder schrill gemasterten Rock-Songs (z. B. Axl Rose) die Schärfe" }
         ],
-        why: "Der MAX97220-Verstärkerchip im JM6 Pro kontrolliert die niederohmigen Treiber des MDR-M1 und Fidelio X2HR mühelos."
+        why: "Je nach Mastering greifst du am Dongle zum X2HR für satten Druck, zum HD 560S für unbestechliche Kontur oder zum HD 599 als gnädigen Weichzeichner."
       },
       {
         genreId: "90s-modern", chainId: "mobil-airpods", room: "Mobil",
@@ -1337,9 +1432,9 @@
         podium: [
           { hp: "Sennheiser HD 599", role: "Sanfter Hochton-Roll-off entschärft schneidende Snares und gibt Toms Volumen" },
           { hp: "Philips Fidelio X2HR", role: "Kräftiger Grundton gleicht dünn abgemischte 80er-Bässe wirkungsvoll aus" },
-          { hp: "Sony MDR-M1", role: "Kontrollierte Höhen ohne den metallischen Peak klassischer 80er-Monitore" }
+          { hp: "Philips SHP9500", role: "Entspannte Mitten für ermüdungsfreies Hören bei moderatem Pegel" }
         ],
-        why: "Typische 80er-Produktionen mit scharfer Snare und dünnem Bass werden durch die warme Grundtonsignatur des HD 599 am JM6 Pro sofort langzeittauglich."
+        why: "Typische 80er-Produktionen mit scharfer Snare werden durch die warme „Wolldecke“ des HD 599 sofort langzeittauglich, während analytische Hörer wie der HD 560S hier zu unbarmherzig wären."
       },
       {
         genreId: "80s-bright", chainId: "mobil-desk", room: "Mobil",
@@ -1349,7 +1444,7 @@
         podium: [
           { hp: "Sennheiser HD 599", role: "Ruhiges, warmes Klangbild ohne Zischeln im Präsenzbereich" },
           { hp: "Philips Fidelio X2HR", role: "Füllt schlanke Produktionen mit einem warmen Tiefton-Teppich auf" },
-          { hp: "Sony MDR-M1", role: "Fokussiert auf die Stand-Toms statt auf die scharfe Snare" }
+          { hp: "HiFiMAN HE400se", role: "Für dynamisch herausragende 80er-Referenzen (z. B. Brothers in Arms oder Gaucho)" }
         ],
         why: "An der rauschfreien Desktop-Kette verzeiht der Sennheiser HD 599 selbst grelle 80er-Abmischungen und rückt den Grundton in den Mittelpunkt."
       },
@@ -1370,10 +1465,11 @@
         examples: "Steely Dan (Aja), Donald Fagen (The Nightfly), Toto (IV), Nils Lofgren (Acoustic Live)",
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2 (6,35 & 3,5 mm parallel)",
         podium: [
-          { hp: "Sony MDR-M1", role: "Moderne Studio-Referenz mit vollem Kessel-Volumen und tiefer Reichweite" },
-          { hp: "Sony MDR-7506", role: "Unerbittliche Mikrofon-Lupe für Anschlagklick, Schnittfehler und Pausen-Stille" }
+          { hp: "Sennheiser HD 560S", role: "Offene Studio-Referenz: zeigt Raumtiefe, Hallfahnen und lineare Balance frei vor dir im Raum" },
+          { hp: "Sony MDR-7506", role: "Geschlossene Mikrofon-Lupe direkt im Kopf für Anschlagklick, Schnittfehler und Pausen-Stille" },
+          { hp: "HiFiMAN HE400se", role: "Planar-Referenz für ultraschnelle Impulsverarbeitung und Schichten-Trennung" }
         ],
-        why: "Die zwei parallelen Frontbuchsen der Head Box S2 erlauben den direkten Vergleich zwischen moderner Kessel-Fülle (MDR-M1) und klassischer Studio-Kontur (MDR-7506)."
+        why: "Die zwei parallelen Frontbuchsen der Head Box S2 erlauben den direkten Vergleich zwischen offener, dreidimensionaler Studio-Neutralität (HD 560S) und geschlossener Nahfeld-Lupe (MDR-7506)."
       },
       {
         genreId: "studio-check", chainId: "mobil-jm6", room: "Mobil",
@@ -1381,11 +1477,11 @@
         examples: "Donald Fagen (The Nightfly), O-Zone Percussion Group (Jazz Variants), Miles Davis (Kind of Blue)",
         chainText: "iPad / iPhone -> JCALLY JM6 Pro -> Kabel-Kopfhörer",
         podium: [
-          { hp: "Sony MDR-M1", role: "Messerscharfe Impulsantwort und tiefschwarzer Hintergrund zwischen den Schlägen" },
+          { hp: "Sennheiser HD 560S", role: "Unbestechliche, offene Detail- und Raum-Analyse mit linearem Tiefbass direkt am Dongle" },
           { hp: "Sony MDR-7506", role: "Hoher Wirkungsgrad (106 dB) deckt jedes Detail im Mix schon bei kleinem Pegel auf" },
           { hp: "Philips SHP9500", role: "Offene Kontroll-Alternative für neutrale Mittenbeurteilung" }
         ],
-        why: "Der Conexant-DAC im JM6 Pro arbeitet völlig rauschfrei und lässt die Pausen zwischen knochentrockenen Drum-Schlägen exakt hervortreten."
+        why: "Der Conexant-DAC im JM6 Pro arbeitet völlig rauschfrei und lässt zusammen mit dem 120-Ω-Wandler des HD 560S feinste Transienten und Pausen exakt hervortreten."
       },
       {
         genreId: "studio-check", chainId: "mobil-airpods", room: "Mobil",
@@ -1401,14 +1497,14 @@
       {
         genreId: "cd", chainId: "musikzimmer-yamaha", room: "Musikzimmer",
         title: "CD im Musikzimmer (Pure Direct am Yamaha-Setup)",
-        examples: "Dire Straits, Supertramp, Pink Floyd und Klassiker aus der eigenen CD-Sammlung",
+        examples: "Fleetwood Mac (Rumours), Dire Straits, Supertramp, Pink Floyd aus der eigenen CD-Sammlung",
         chainText: "Yamaha CD-S300 -> Cinch -> Yamaha 525 (6,35 mm Kopfhörerausgang)",
         podium: [
+          { hp: "Sennheiser HD 560S", role: "120 Ω harmonieren hervorragend mit dem Yamaha-Ausgang: straffer Kickdrum-Punch und glasklare Raumstaffelung" },
           { hp: "Sony MDR-7506", role: "Die hohe Ausgangsimpedanz des Yamaha rundet die Höhen sanft ab und stärkt den Oberbass" },
-          { hp: "Sony MDR-M1", role: "Souveräner, trockener Kessel-Punch mit geschlossener Ruhe im Raum" },
-          { hp: "Sennheiser HD 599", role: "Sehr warme, vollmundige Darstellung für entspanntes Album-Hören" }
+          { hp: "Sennheiser HD 599", role: "Sehr warme, vollmundige Darstellung für gemütliches Album-Hören" }
         ],
-        why: "Über die Vorwiderstände des Yamaha 525 verliert der analytische MDR-7506 seine Schärfe und gewinnt genau das richtige Maß an Grundtonwärme für CDs."
+        why: "Durch seine 120-Ω-Schwingspule wird der HD 560S am hochohmigen Ausgang des Yamaha 525 deutlich sauberer gedämpft als niederohmige Hörer und spielt bei dynamischen CDs souverän auf."
       },
       {
         genreId: "vinyl", chainId: "musikzimmer-yamaha", room: "Musikzimmer",
@@ -1417,10 +1513,10 @@
         chainText: "Technics SL-QD33 -> Yamaha 525 Phono-In -> Yamaha 525 (6,35 mm Kopfhörerausgang)",
         podium: [
           { hp: "Sennheiser HD 599", role: "Die >100-Ω-Ausgangsimpedanz schiebt die 100-Hz-Spitze des HD 599 für maximale Plattenwärme an" },
-          { hp: "Sony MDR-M1", role: "Blendet Laufwerksgeräusche aus und liefert straffen, organischen Punch" },
-          { hp: "Philips Fidelio X2HR", role: "Großzügige, räumliche Kulisse mit weichem, analogem Tiefton" }
+          { hp: "Philips Fidelio X2HR", role: "Großzügige, räumliche Kulisse mit weichem, analogem Tiefton" },
+          { hp: "Sennheiser HD 560S", role: "Für audiophile Pressungen, bei denen straffe Basskontur und feine Detailauflösung gefragt sind" }
         ],
-        why: "Hier arbeitet die elektrische Wechselwirkung für dich: Der Vorwiderstand des Yamaha-Verstärkers verleiht dem HD 599 im Bereich um 100 Hz einen wohligen Schub."
+        why: "Hier arbeitet die elektrische Wechselwirkung für dich: Der Vorwiderstand des Yamaha-Verstärkers verleiht dem HD 599 um 100 Hz einen wohligen Schub, während der HD 560S für präzise Kontur bereitsteht."
       },
       {
         genreId: "travel-media", chainId: "mobil-airpods", room: "Mobil",
@@ -1435,57 +1531,58 @@
       },
       {
         genreId: "travel-media", chainId: "mobil-jm6", room: "Mobil",
-        title: "Reise-Setup mit Kabel & Hardcase (Am JCALLY JM6 Pro)",
-        examples: "Unterwegs im Hotel oder Ferienhaus mit iPad/iPhone, 2–3 Kabeln und kompaktem Dongle",
-        chainText: "iPad / iPhone -> JCALLY JM6 Pro -> Geschlossener Reise-Kopfhörer",
+        title: "Reise- & Ferienhaus-Setup mit Kabel (Am JCALLY JM6 Pro)",
+        examples: "Unterwegs im Hotel oder Ferienhaus mit iPad/iPhone und kompaktem Dongle",
+        chainText: "iPad / iPhone -> JCALLY JM6 Pro -> Kabel-Kopfhörer",
         podium: [
-          { hp: "Sony MDR-7506", role: "Lässt sich kompakt zusammenfalten und spart im Hardcase am meisten Platz" },
-          { hp: "Sony MDR-M1", role: "Leichtgewichtiger, geschlossener Monitor mit flach drehbaren Ohrmuscheln" }
+          { hp: "Sony MDR-7506", role: "Lässt sich kompakt zusammenfalten, isoliert geschlossen und spart im Hardcase am meisten Platz" },
+          { hp: "Sennheiser HD 560S", role: "Federleichter 240-g-Referenzhörer für ungestörte Abend-Sessions im Ferienhaus" },
+          { hp: "Sennheiser HD 599", role: "Bequemer Wohlfühl-Hörer für entspannte Urlaubsstunden" }
         ],
-        why: "Für Reisen mit dem JM6 Pro im Hardcase (mit Reißverschluss-Netzfach für den Metall-Dongle) sind die geschlossenen, robusten Sony-Monitore ideal."
+        why: "Für unterwegs mit geschlossener Abschirmung ist der faltbare MDR-7506 ideal; im ruhigen Ferienhaus liefern HD 560S und HD 599 am JM6 Pro offenen Vollformat-Klang."
       },
       {
         genreId: "travel-media", chainId: "mobil-desk", room: "Mobil",
-        title: "Stationärer Medien- & Konzertabend am Schreibtisch",
-        examples: "Live-Konzerte, Musik-Dokumentationen und konzentriertes Hören am iPad Air M3",
+        title: "Stationärer Medien-, Gaming- & Konzertabend am Schreibtisch",
+        examples: "Live-Konzerte, Musik-Dokumentationen und präzise 3D-Ortung",
         chainText: "iPad Air M3 -> Topping D10s -> Pro-Ject Head Box S2",
         podium: [
           { hp: "Philips Fidelio X2HR", role: "Weite, kinoartige Kulisse mit kräftigem Tiefton-Fundament" },
-          { hp: "Sennheiser HD 599", role: "Federleichter Tragekomfort für mehrstündige Konzertfilme" },
-          { hp: "Sony MDR-M1", role: "Geschlossene Alternative, wenn die Umgebung ruhig bleiben soll" }
+          { hp: "Sennheiser HD 560S", role: "Millimetergenaue 3D-Ortung und Sprachverständlichkeit durch angewinkelte E.A.R.-Treiber" },
+          { hp: "Sennheiser HD 599", role: "Federleichter Tragekomfort für mehrstündige Konzertfilme" }
         ],
-        why: "Für Konzertmitschnitte am Schreibtisch verbindet der Fidelio X2HR eine große räumliche Breite mit einem satten Fundament."
+        why: "Für Konzertmitschnitte und Filme bieten der Fidelio X2HR (Stadion-Breite) und der HD 560S (punktgenaue Ortung) ein luftiges, druckfreies Erlebnis."
       }
     ];
 
     const PROFILES = [
       {
-        name: "Sony MDR-M1", type: "Geschlossener Studio-Monitor · Dynamisch", imp: "ca. 50 Ω", sens: "102 dB/mW",
-        rooms: "Mobil (Desk & JM6 Pro) · Musikzimmer",
-        punch: "Exzellenter, trockener Kessel-Punch (80–250 Hz) durch geschlossene Kammer ohne schwammigen Subbass.",
-        amp: "Spielt an der Head Box S2 wie am mobilen JCALLY JM6 Pro mit voller Impulskontrolle. Am Yamaha 525 minimal weicher im Anschlag, aber sehr pegelfest.",
-        notes: "Der vielseitigste Allrounder für fokussiertes Hören von Fleetwood Mac, 90er-Rock und trocken abgemischten Studio-Drums."
+        name: "Sennheiser HD 560S", type: "Offener Referenz- & Analyse-Kopfhörer · Dynamisch (E.A.R.)", imp: "120 Ω", sens: "110 dB/V",
+        rooms: "Mobil (Desk & JM6 Pro) · Musikzimmer (CD-Favorit am Yamaha)",
+        punch: "Schnurgerader, knochentrockener Tiefton bis 30 Hz ohne Oberbass-Matsch – die geliebte Luftigkeit eines AKG K701, aber mit echtem, konturiertem Fundament („etwas Bass, aber nicht zu viel“).",
+        amp: "Dank 120 Ω und hohem Wirkungsgrad (110 dB/V) ein echter Spagat-Meister: Spielt am JM6 Pro dynamisch auf, wird an der Head Box S2 eisern kontrolliert und dämpft am hochohmigen Yamaha 525 sauber ab.",
+        notes: "Deine offene, druckfreie Studio-Referenz mit angewinkelten Treibern für realistische Bühnenstaffelung, klaren Saiten-Biss (4–6 kHz) und präzise Instrumententrennung."
       },
       {
         name: "Sennheiser HD 599", type: "Offener HiFi-Kopfhörer · Dynamisch", imp: "50 Ω (>200 Ω @ 100 Hz)", sens: "106 dB/V",
         rooms: "Mobil (JM6 Pro & Desk) · Musikzimmer (Vinyl-Favorit)",
-        punch: "Warm, holzig und körperhaft im Oberbass; rundet scharfe Snare-Impulse und spitze 80er-Höhen sanft ab.",
+        punch: "Warm, holzig und körperhaft im Oberbass; legt eine gemütliche „Wolldecke“ über scharfe Snares und spitze 80er/90er-Höhen.",
         amp: "An Head Box S2 und JM6 Pro (< 1 Ω) kontrolliert und ausgewogen; am Yamaha 525 (> 100 Ω) mit deutlichem 100-Hz-Wärmeschub.",
-        notes: "Erste Wahl für Vinyl im Musikzimmer, für schrille 80er-Produktionen und entspannte West-Coast-Abende auf der Couch."
+        notes: "Wie ein bequemes Sofa zum Ankommen: erste Wahl für Vinyl, für eine gemütliche Tasse Kaffee oder Tee am Dongle und zum Entschärfen greller Masterings."
       },
       {
         name: "HiFiMAN HE400se", type: "Offener Magnetostat (Planar-Magnetisch)", imp: "32 Ω (linear)", sens: "91 dB/mW",
         rooms: "Exklusiv Mobil – Schreibtisch (Topping D10s + Head Box S2)",
         punch: "Ultraschnelle Transienten und messerscharfe Schichtung einzelner Toms im Raum ohne künstliche Aufdickung.",
         amp: "Benötigt hohe Stromlieferfähigkeit (Current). Läuft exklusiv an der Pro-Ject Head Box S2 (725 mW @ 32 Ω) zur Hochform auf.",
-        notes: "Das Vergrößerungsglas für 70er-Jahre-Referenzaufnahmen (Baba O'Riley, Aja, Dark Side of the Moon) und akustischen Blues am Schreibtisch."
+        notes: "Das Vergrößerungsglas für 70er-Jahre-Referenzaufnahmen (Baba O'Riley, Aja, Dark Side of the Moon), komplexe Passagen (November Rain) und akustischen Blues."
       },
       {
         name: "Sony MDR-7506", type: "Geschlossener Studio-Klassiker · Faltbar", imp: "63 Ω", sens: "106 dB/mW",
-        rooms: "Musikzimmer (CD-Favorit) · Mobil (Desk A/B & Reise)",
-        punch: "Fokussiert auf den knackigen Anschlag-Klick der Felle (100–200 Hz), fällt im tiefsten Subbass trocken ab.",
-        amp: "An Head Box S2 und JM6 Pro eine unbestechliche Studio-Lupe. Am hochohmigen Ausgang des Yamaha 525 werden die präsenten Höhen angenehm entschärft.",
-        notes: "Durch den Klappmechanismus ideal für das kompakte Reise-Hardcase mit dem JM6 Pro sowie als Erstbesetzung für CDs im Musikzimmer."
+        rooms: "Musikzimmer (CD) · Mobil (Desk A/B & Reise)",
+        punch: "Fokussiert auf den knackigen, isolierten Anschlag-Klick der Felle (100–120 Hz), fällt unter 50 Hz trocken ab.",
+        amp: "An Head Box S2 und JM6 Pro eine unbestechliche Nahfeld-Lupe. Am hochohmigen Ausgang des Yamaha 525 werden die präsenten Höhen angenehm entschärft.",
+        notes: "Durch den Klappmechanismus und die geschlossene Isolation ideal für das Reise-Hardcase sowie für die direkte Fehlersuche im Mix."
       },
       {
         name: "Philips Fidelio X2HR", type: "Offener HiFi-Kopfhörer · 50-mm-Treiber", imp: "30 Ω", sens: "100 dB/mW",
@@ -1499,7 +1596,7 @@
         rooms: "Mobil (JM6 Pro & Desk)",
         punch: "Schlanker, schneller und trockener Bassbereich; legt den Fokus auf Mitten, Gesangsharmonien und Akustikgitarren.",
         amp: "An JM6 Pro und Head Box S2 vollkommen unkritisch und direkt.",
-        notes: "Ideal für West-Coast-Satzgesang (Rumours, Eagles, Fleet Foxes), Folk und lange, ermüdungsfreie Hörsessions."
+        notes: "Leichtgewicht für West-Coast-Satzgesang (Rumours, Eagles, Fleet Foxes), Folk und lange, luftige Hörsessions."
       },
       {
         name: "Apple AirPods Max 2", type: "Geschlossener Over-Ear · Apple H2-DSP & ANC", imp: "Aktiv (H2-DSP)", sens: "Adaptive EQ",
@@ -1590,7 +1687,7 @@
         if ((selGenre === "cd" || selGenre === "vinyl") && selChain && selChain !== "musikzimmer-yamaha") {
           msg = "CD und Vinyl stehen fest im Musikzimmer am Yamaha 525 und sind nicht mit den mobilen Ketten verbunden.";
         } else if (selHp === "HiFiMAN HE400se" && selChain && selChain !== "mobil-desk") {
-          msg = "Der HiFiMAN HE400se benötigt die 725 mW der Pro-Ject Head Box S2 am Schreibtisch und wird am Dongle oder Yamaha 525 nicht empfohlen.";
+          msg = "Der HiFiMAN HE400se benötigt die 725 mW der Pro-Ject Head Box S2 am Schreibtisch; nutze am JM6 Pro oder Yamaha 525 stattdessen den Sennheiser HD 560S.";
         } else if ((selHp === "Apple AirPods Max 2" || selHp === "Apple AirPods Pro 3") && selChain && selChain !== "mobil-airpods") {
           msg = "Die Apple AirPods arbeiten autark mit eigenem H2-Chip und werden ohne externe Verstärker betrieben.";
         }
@@ -1649,7 +1746,7 @@
           </div>
           <div class="profile-body">
             <p><strong>Einsatzbereich:</strong> ${p.rooms}</p>
-            <p><strong>Kessel-Punch (80–250 Hz):</strong> ${p.punch}</p>
+            <p><strong>Bass &amp; Kessel-Punch:</strong> ${p.punch}</p>
             <p><strong>Verstärker-Zusammenspiel:</strong> ${p.amp}</p>
             <p><strong>Praxis-Notiz:</strong> ${p.notes}</p>
           </div>
@@ -1737,10 +1834,10 @@
 
       if (p === "blues-americana" || g.includes("blues") || g.includes("folk") || g.includes("country") || g.includes("americana")) {
         return {
-          bestChain: "Mobil – Topping D10s + Pro-Ject Head Box S2 (Alternativ: JCALLY JM6 Pro)",
+          bestChain: "Mobil – Topping D10s + Pro-Ject Head Box S2 (Sofa: JCALLY JM6 Pro)",
           bestHp: "🥇 HiFiMAN HE400se",
-          altHp: "🥈 Sennheiser HD 599",
-          why: "Die 725 mW der Head Box S2 lösen feinste Holzfaser-Texturen und den Raum am HE400se perfekt auf; auf der Couch am JM6 Pro liefert der HD 599 erdige Wärme."
+          altHp: "🥈 Sennheiser HD 560S · 🥉 Sennheiser HD 599",
+          why: "Die 725 mW der Head Box S2 lösen feinste Holzfaser-Texturen am HE400se auf; am JM6 Pro bieten der HD 560S (lineare Klarheit) und der HD 599 (erdige Wärme) das ideale Duo."
         };
       }
 
@@ -1748,17 +1845,17 @@
         return {
           bestChain: "Mobil – Topping D10s + Pro-Ject Head Box S2 (Sofa: JCALLY JM6 Pro)",
           bestHp: "🥇 HiFiMAN HE400se",
-          altHp: "🥈 Sennheiser HD 599 · 🥉 Philips SHP9500",
-          why: "Hohe Kanaltrennung für gestaffelten Satzgesang und Akustikgitarren an der Desktop-Kette; am JM6 Pro sorgt der HD 599 für geschmeidigen California-Schmelz."
+          altHp: "🥈 Sennheiser HD 560S · 🥉 Sennheiser HD 599",
+          why: "Hohe Kanaltrennung für gestaffelten Satzgesang an HE400se und HD 560S; für den samtigen California-Schmelz auf dem Sofa greifst du zum HD 599."
         };
       }
 
       if (p === "studio-check" || g.includes("jazz") || g.includes("electronic")) {
         return {
           bestChain: "Mobil – Topping D10s + Pro-Ject Head Box S2 (2,0 Vrms · < 1 Ω)",
-          bestHp: "🥇 Sony MDR-M1",
+          bestHp: "🥇 Sennheiser HD 560S",
           altHp: "🥈 HiFiMAN HE400se · 🥉 Sony MDR-7506",
-          why: "Rauschfreie 2,0-Vrms-Kette für tiefschwarze Pausen zwischen trockenen Drum-Schlägen und maximale Impulskontrolle im Bereich 80–250 Hz."
+          why: "Unbestechliche Studio-Referenz: Der HD 560S verbindet offenen, dreidimensionalen Raum mit einem schnurgeraden Tiefbass bis 30 Hz und messerscharfer Ortung."
         };
       }
 
@@ -1775,16 +1872,16 @@
         return {
           bestChain: "Mobil – Topping D10s + Pro-Ject Head Box S2 (725 mW @ 32 Ω)",
           bestHp: "🥇 HiFiMAN HE400se",
-          altHp: "🥈 Sony MDR-M1 (am JM6 Pro auf Platz 1)",
-          why: "Paradedisziplin für deine Hauptkette: Der HE400se staffelt große Stand-Toms plastisch im Raum, während der geschlossene MDR-M1 maximalen Kessel-Druck liefert."
+          altHp: "🥈 Sennheiser HD 560S (am JM6 Pro & Yamaha CD auf Platz 1)",
+          why: "Paradedisziplin für deine Hauptkette: Der HE400se staffelt große Stand-Toms plastisch im Raum, während der HD 560S auch mobil am Dongle trockenen, linearen Punch liefert."
         };
       }
 
       return {
         bestChain: "Mobil – Topping D10s + Head Box S2 (Mobil: JCALLY JM6 Pro)",
-        bestHp: "🥇 Sony MDR-M1",
-        altHp: "🥈 HiFiMAN HE400se · 🥉 Apple AirPods Max 2 (USB-C)",
-        why: "Der geschlossene Sony MDR-M1 schält Kickdrum und tiefe Toms auch aus modernen, dichten Produktionen körperhaft und kontrolliert heraus."
+        bestHp: "🥇 HiFiMAN HE400se",
+        altHp: "🥈 Sennheiser HD 560S · 🥉 Philips Fidelio X2HR",
+        why: "HE400se und HD 560S trennen komplexe moderne Spuren und tiefe Drums ohne Maskierung sauber auf; für rohe Gitarrenwände liefert der Fidelio X2HR sattes Fundament."
       };
     }
 
